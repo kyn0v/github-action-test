@@ -23,10 +23,15 @@ jobs:
         uses: actions/checkout@v1
       - name: 'Get weather report'
         run: bash ./weather.sh
+      - name: 'Read result.txt'
+        id: package
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./result.txt
       - name: send weather message
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: send weather message
-          document: ./result.txt
+          message: ${{ steps.package.outputs.content }}
+          # document: ./result.txt
