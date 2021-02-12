@@ -24,9 +24,9 @@ jobs:
           sudo apt update && \
           sudo apt install python3
       - name: 'Install dependent package'
-        run: |
-            pip3 install requests && \
-            pip3 install python-telegram-bot
+        run:
+          pip3 install requests
+          pip3 install python-telegram-bot
       - name: 'Run python'
         env:
           TG_TO: ${{ secrets.TELEGRAM_TO }}
