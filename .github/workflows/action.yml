@@ -15,14 +15,12 @@ on:
 jobs:
   # This workflow contains two jobs
   checkin-job:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - name: 'Checkout codes'
         uses: actions/checkout@v1
       - name: 'Install Python'
-        run: |
-          sudo apt update
-          sudo apt install python3
+        run:  sudo apt update
       - name: 'Install dependent package'
         run: |
           pip3 install requests
