@@ -1,4 +1,4 @@
-name: 'GitHub Actions Weather Bot'
+name: 'GitHub Actions Demo'
 
 # Controls when the action will run. 
 on:
@@ -13,18 +13,39 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  # This workflow contains two jobs
+  checkin-job:
     runs-on: ubuntu-latest
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: 'Checkout codes'
+      - uses: actions/checkout@v1
+      - name: 'Install Python'
+        run: |
+          sudo apt update && \
+          sudo apt install python3
+      - name: 'Install dependent package'
+        run: |
+            pip3 install requests && \
+            pip3 install python-telegram-bot
+      - name: 'Run python'
+        env:
+          TG_TO: ${{ secrets.TELEGRAM_TO }}
+          TG_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+        run: |
+          python3 check.py <<EOF
+          ${{secrets.config}}
+          EOF
+
+  weather-prediction-job:
+    needs: checkin-job
+    runs-on: ubuntu-latest
     steps:
       - name: 'Checkout codes'
         uses: actions/checkout@v1
       - name: 'Get weather report'
         run: bash ./weather.sh
       - name: 'Read result.txt'
-        id: package
+        id: read_file
         uses: juliangruber/read-file-action@v1
         with:
           path: ./result.txt
@@ -33,5 +54,6 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: ${{ steps.package.outputs.content }}
+          message: ${{ steps.read_file.outputs.content }}
           # document: ./result.txt
+    
