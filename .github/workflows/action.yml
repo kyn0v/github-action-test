@@ -21,10 +21,10 @@ jobs:
         uses: actions/checkout@v1
       - name: 'Install Python'
         run: |
-          sudo apt update && \
+          sudo apt update
           sudo apt install python3
       - name: 'Install dependent package'
-        run:
+        run: |
           pip3 install requests
           pip3 install python-telegram-bot
       - name: 'Run python'
