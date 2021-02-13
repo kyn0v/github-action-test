@@ -33,7 +33,7 @@ jobs:
           TG_TO: ${{ secrets.TELEGRAM_TO }}
           TG_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
         run: |
-          python3 check.py <<EOF
+          python3 checkin.py <<EOF
           ${{secrets.config}}
           EOF
 
