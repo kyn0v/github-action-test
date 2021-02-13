@@ -15,25 +15,26 @@ on:
 jobs:
   # This workflow contains two jobs
   checkin-job:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - name: 'Checkout codes'
         uses: actions/checkout@v1
       - name: 'Install Python'
         run: |
           sudo apt update
+          sudo apt install python3
           sudo apt-get install python3-setuptools
       - name: 'Install dependent package'
         run: |
-          pip install -U pip setuptools 
-          pip install requests
-          pip install python-telegram-bot
+          pip3 install -U pip setuptools 
+          pip3 install requests
+          pip3 install python-telegram-bot
       - name: 'Run python'
         env:
           TG_TO: ${{ secrets.TELEGRAM_TO }}
           TG_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
         run: |
-          python checkin.py <<EOF
+          python3 checkin.py <<EOF
           ${{secrets.config}}
           EOF
 
