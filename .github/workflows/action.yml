@@ -20,11 +20,14 @@ jobs:
       - name: 'Checkout codes'
         uses: actions/checkout@v1
       - name: 'Install Python'
-        run:  sudo apt update
+        run: |
+          sudo apt update
+          sudo apt-get install python3-setuptools
       - name: 'Install dependent package'
         run: |
-          pip3 install requests
-          pip3 install python-telegram-bot
+          pip install -U pip setuptools 
+          pip install requests
+          pip install python-telegram-bot
       - name: 'Run python'
         env:
           TG_TO: ${{ secrets.TELEGRAM_TO }}
