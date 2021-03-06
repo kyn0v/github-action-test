@@ -141,7 +141,7 @@ def check(cookies, geo_api_info, id, uid):
                  + ' ' + geo_api_info['addressComponent']['district'],
         'province': geo_api_info['addressComponent']['province'],
         'city': geo_api_info['addressComponent']['city'],
-        'sfzx': '0',        # 今日是否在校？
+        'sfzx': '1',        # 今日是否在校？
         'sfjcwhry': '0',    # 今日是否与来自武汉市的人员有过密切接触？
         'sfjchbry': '0',    # 今日是否与来自湖北其他地区（不含武汉市）的人员有过密切接触？
         'sfcyglq': '0',     # 是否处于隔离期/医学观察期（含特殊情况需要居家观察的）？
